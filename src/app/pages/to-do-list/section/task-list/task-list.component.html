@@ -1,0 +1,52 @@
+<div class="relative overflow-x-auto mt-5">
+  <table
+    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+  >
+    <thead
+      class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+    >
+      <tr>
+        <th scope="col" class="py-3">Task name</th>
+        <th scope="col" class="py-3">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let item of task"
+        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+      >
+        <th scope="row" class="py-3 w-[500px]">
+          <div class="flex gap-3" *ngIf="isEditing === item.id; else elseBlock">
+            <input
+              class="w-[60%] font-medium border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Enter task name"
+              [(ngModel)]="item.name"
+              id="edit-task-input"
+              #editValue
+            />
+            <button type="button" (click)="handleEditTask(editValue.value)" class="font-medium text-white bg-blue-500 px-5 rounded-lg">save</button>
+          </div>
+          <ng-template #elseBlock>
+            <span
+              class="font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+              {{ item.name }}</span
+            >
+          </ng-template>
+        </th>
+        <td class="py-4 flex gap-3">
+          <span
+            (click)="handleClickEdit(item.id)"
+            class="hover:underline cursor-pointer"
+            >Edit</span
+          >
+          <span
+            (click)="handleRemoveTask(item.id)"
+            class="hover:underline cursor-pointer"
+            >Delete</span
+          >
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
